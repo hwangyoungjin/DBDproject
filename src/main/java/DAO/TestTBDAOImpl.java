@@ -17,7 +17,7 @@ public class TestTBDAOImpl implements TestTBDAO {
 
         /* Preparation for db process*/
         Connection dbConnection = null;
-        PreparedStatement dbPreparedStatement = null;
+        Statement statement = null;
         ResultSet queryResultset = null;
 
         try{
@@ -32,16 +32,16 @@ public class TestTBDAOImpl implements TestTBDAO {
             dbConnection = DriverManager.getConnection(dbConnectionUrl,dbInfo.getUsername(),dbInfo.getPassword());
 
             /*Set the query statement*/
-            String queryString = "select value from test_tb where id > 50";
-            dbPreparedStatement = dbConnection.prepareStatement(queryString);
+            String queryString = "select id,value from test_tb where id > 50";
+            statement = dbConnection.createStatement();
             System.out.println("select sql ->"+queryString);
 
             /*send query and get the result*/
-            queryResultset = dbPreparedStatement.executeQuery();
+            queryResultset = statement.executeQuery(queryString);
 
             /*Retrieve the information from the query response*/
             while (queryResultset.next()){
-                System.out.println("[item]" + queryResultset.getFloat("value"));
+                System.out.println("#" +queryResultset.getInt("id")+" : "+ queryResultset.getFloat("value"));
             }
             System.out.println("select finished!");
 
@@ -53,8 +53,8 @@ public class TestTBDAOImpl implements TestTBDAO {
                 if(queryResultset != null){
                     queryResultset.close();
                 }
-                if(dbPreparedStatement != null){
-                    dbPreparedStatement.close();
+                if(statement != null){
+                    statement.close();
                 }
                 if(dbConnection != null){
                     dbConnection.close();
@@ -74,7 +74,7 @@ public class TestTBDAOImpl implements TestTBDAO {
 
         /* Preparation for db process*/
         Connection dbConnection = null;
-        Statement dbStatement = null;
+        PreparedStatement dbPreparedStatement = null;
 
         try{
             /*Driver load*/
@@ -84,26 +84,30 @@ public class TestTBDAOImpl implements TestTBDAO {
             String dbConnectionUrl = String.format("jdbc:mysql://%s:%s/%s?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
                     dbInfo.getHost(),dbInfo.getPort(), dbInfo.getDatabase_name());
 
-            /*Set the db connection*/
+            /*Prepare the query statement*/
+            String queryString = "insert into test_tb (id,value) values(?,?)";
+
+            /*DB insertion process*/
             dbConnection = DriverManager.getConnection(dbConnectionUrl,dbInfo.getUsername(),dbInfo.getPassword());
+            dbPreparedStatement = dbConnection.prepareStatement(queryString);
 
             /*Set the query statement*/
-            dbStatement = dbConnection.createStatement();
-            String queryString = "insert into test_tb (id,value) values ("+testTBVO.getId()+","+testTBVO.getValue()+")";
-            System.out.println("insert sql ->"+queryString);
+            dbPreparedStatement.setInt(1,testTBVO.getId());
+            dbPreparedStatement.setFloat(2,testTBVO.getValue());
+
+            System.out.println(dbPreparedStatement);
 
             /*send query and get the result*/
-            dbStatement.executeUpdate(queryString);
-            System.out.println("insert finished!");
-
+            int result = dbPreparedStatement.executeUpdate();
+            System.out.println("Updated query : "+ result);
 
         }catch (ClassNotFoundException | SQLException e){
             e.printStackTrace();
         }finally {
             try{
                 //Clean-UP
-                if(dbStatement != null){
-                    dbStatement.close();
+                if(dbPreparedStatement != null){
+                    dbPreparedStatement.close();
                 }
                 if(dbConnection != null){
                     dbConnection.close();

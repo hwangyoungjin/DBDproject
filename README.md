@@ -26,3 +26,10 @@ personal Project
 	```
 7. 예제5코드(insert sql문) 추가
 8. 테스트 레코드 삽입 + 검색 테스트 완료
+	```java
+	[select에서 Resultset.getInt("id")부분에서 ID를 못찾았다는 오류]
+	[해결]
+	String queryString = "select id,value from test_tb where id > 50"; 에서
+	id 컬럼을 선택하지 않았었음
+	```
+            	
