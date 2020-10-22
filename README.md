@@ -32,7 +32,10 @@ personal Project
 	String queryString = "select id,value from test_tb where id > 50"; 에서
 	id 컬럼을 선택하지 않았었음
 	```
-            	
+9. 정리
+---
+![슬라이드1](https://user-images.githubusercontent.com/60174144/96840160-0dd1ef00-1485-11eb-8b96-6f8816fbff67.PNG)
+
 [2. busProject]
 ---
 1. **[1]**과정과 기본설정 동일
@@ -70,18 +73,28 @@ personal Project
 	2. DAO 클래스
 	```java
 	- BusRouteDAO.java -> BusRouteDAOImpl.java 
+	  //노선 테이블생성 (테스트완료)
+	  public void createTable()
 	  //노선 등록 (테스트완료)
    	  public void createRoute(RouteInfo routeInfo);
-	
+	  
 	- BusScheduleDAO.java -> BusScheduleDAOImpl.java
+	  //운행스케줄 테이블생성 (테스트완료)
+	  public void createTable()
 	  //운행스케줄 등록 (테스트완료)
-    	  public void createSchecdule(ScheduleInfo scheduleInfo);
-    	  //운행스케줄 검색
-    	  public List<ScheduleInfo> searchSchedule(String onStation, String offStation, float time);
-	
+	  public void createSchecdule(ScheduleInfo scheduleInfo);
+	  //운행스케줄 검색 (테스트완료)
+	  public List<ScheduleInfo> searchSchedule(String onStation, String offStation, float time);
+	  
 	- ViaBusDAO.java -> ViaBusDAOImpl.java
+	  //노선 테이블생성 (테스트완료)
+	  public void createTable()
 	  //경유지 등록 (테스트완료)
 	  public void createVia(ViaInfo viaInfo);
 	```
 	3. Main.java : recode 넣고 프로그램 실행
 	4. DatabaseAuthInformation.java : DB정보연결할 DB접속정보클래스 (busDB 설정완료)
+
+4. 정리
+---
+![슬라이드2](https://user-images.githubusercontent.com/60174144/96840206-1e826500-1485-11eb-976c-2adf5daba3f9.PNG)

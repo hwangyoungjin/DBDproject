@@ -10,17 +10,64 @@ import java.sql.SQLException;
 
 public class ViaBusDAOImpl implements ViaBusDAO {
 
+    //경유 테이블 생성
+    @Override
+    public void createTable(){
+        /* Retrieve DB authentication information*/
+        DBD_env_unification.DatabaseAuthInformation dbInfo = new DBD_env_unification.DatabaseAuthInformation();
+        dbInfo.parse_auth_info("auth/mysql.auth");
+        //dbInfo.debug_print();
 
-    /**
-     * CREATE TABLE
-     *
-     * CREATE TABLE `busdb`.`viabus` (
-     *   `transitCode` VARCHAR(45) NOT NULL,
-     *   `station` VARCHAR(45) NOT NULL,
-     *   `arrivelTime` FLOAT NOT NULL,
-     *   `departureTime` FLOAT NULL,
-     *   PRIMARY KEY (`transitCode`, `station`, `arrivelTime`));
-     */
+        /* Preparation for db process*/
+        Connection dbConnection = null;
+        PreparedStatement dbPreparedStatement = null;
+
+
+        try{
+            /*Driver load*/
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            /*Prepare the URL for DB connection*/
+            String dbConnectionUrl = String.format("jdbc:mysql://%s:%s/%s?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
+                    dbInfo.getHost(),dbInfo.getPort(), dbInfo.getDatabase_name());
+
+            /*Prepare the query statement*/
+            String queryString = "CREATE TABLE busdb.viabus "
+                    +" (transitCode VARCHAR(45) NOT NULL,"
+                    +" station VARCHAR(45) NOT NULL,"
+                    +" arrivelTime FLOAT NOT NULL,"
+                    +" departureTime FLOAT NULL,"
+                    +" PRIMARY KEY (transitCode, station, arrivelTime))";
+
+
+            /*DB insertion process*/
+            dbConnection = DriverManager.getConnection(dbConnectionUrl,dbInfo.getUsername(),dbInfo.getPassword());
+            dbPreparedStatement = dbConnection.prepareStatement(queryString);
+
+            System.out.println(dbPreparedStatement);
+
+            /*send query and get the result*/
+            int result = dbPreparedStatement.executeUpdate();
+            System.out.println("Updated query : "+ result);
+
+        }catch (ClassNotFoundException | SQLException e){
+            e.printStackTrace();
+        }finally {
+            try{
+                //Clean-UP
+                if(dbPreparedStatement != null){
+                    dbPreparedStatement.close();
+                }
+                if(dbConnection != null){
+                    dbConnection.close();
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+
 
 
     @Override

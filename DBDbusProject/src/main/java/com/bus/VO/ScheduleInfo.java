@@ -50,10 +50,9 @@ public class ScheduleInfo {
     @Override
     public String toString() {
 
-        return "" + "[ routeName=" + routeName
-                + ",  day=" + day
-                + ", departureTime=" + departureTime
-                +", arrivelTime=" + arrivelTime
-                + ", transitCode=" + transitCode +" ]";
+        return "" + "<노선명 : " + routeName
+                + ",  요일 : " + day
+                + ", 출발시간 : " + departureTime
+                +", 도착시간: " + arrivelTime +">";
     }
 }
