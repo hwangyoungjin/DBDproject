@@ -1,7 +1,8 @@
 # DBDproject
-personal Project
+##personal Project
+### skill :  IntelliJ + gradle + jdbc +mysql
 ---
-[1. IntelliJ + gradle + jdbc +mysql 으로 test_tb테이블 레코드 검색 & 삽입 + **basicProject**]
+[1. **basicProject** : test_tb테이블 레코드 검색 & 삽입]
 ---
 1. gradle, jdk8 프로젝트 생성
 2. build.gradle의 의존성추가
@@ -62,6 +63,11 @@ personal Project
 	 2. 노선별로 (월~일) 최대 7개의 스케줄 출력
 	 3. 예제 테이블중 프로그램의 필요한 테이블 생성 : 노선, 운행스케줄, 경유
 	 4. 시간 컬럼의 데이터 값은 float
+
+	예) 경부선하행 노선/월요일 운행스케줄이 대전과 동대구를 경유한다고 가정
+	입력 : 서울/부산 [or 대전/부산 or 대전/부산 or 대전/동대구] 10.10
+	출력 : <결부선하행,요일,출발시간,도착시간>의 List 
+	(여기서 출발시간은 10.10보다 크다)
 	```
 3. 구현 내용 
 	1. VO 클래스
