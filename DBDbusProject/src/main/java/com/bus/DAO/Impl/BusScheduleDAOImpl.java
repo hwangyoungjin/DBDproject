@@ -9,18 +9,6 @@ import java.util.List;
 
 public class BusScheduleDAOImpl implements BusScheduleDAO {
 
-    /**
-     * CREATE TABLE
-     *
-     * CREATE TABLE `busdb`.`busschedule` (
-     *   `routeName` VARCHAR(45) NOT NULL,
-     *   `day` VARCHAR(45) NOT NULL,
-     *   `departureTime` FLOAT NULL,
-     *   `arrivelTime` FLOAT NULL,
-     *   `transitCode` VARCHAR(45) NULL,
-     *   PRIMARY KEY (`routeName`, `day`));
-     */
-
     @Override
     public void createTable() {
         /* Retrieve DB authentication information*/
