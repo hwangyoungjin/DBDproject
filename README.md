@@ -143,3 +143,69 @@
 ---
 
 ![슬라이드2](https://user-images.githubusercontent.com/60174144/96840206-1e826500-1485-11eb-976c-2adf5daba3f9.PNG)
+
+[3. PersonalProject]
+---
+1. **[1]**과정과 기본설정 동일
+
+2. 구현 할 내용 : 코딩 멘토-멘티 매칭서비스
+	- ERD
+		- ![image](https://user-images.githubusercontent.com/60174144/100432979-b9eaa380-30dd-11eb-92e0-9b69ef0ca946.png)
+	- RDB 
+		- ![image](https://user-images.githubusercontent.com/60174144/100431863-177df080-30dc-11eb-8616-dfda7d2135bb.png)
+	```html
+	• 요구분석 Requirement
+	
+	- User (멘토,멘티 공통) 기능
+		1. 코딩 레벨테스트
+		2. 멘토 등록
+		3. 멘토링 요청 글 작성
+		4. 평점, 언어별로 멘토 검색하여 멘토정보 찾을 수 있다. 
+	- 멘토
+		1. 멘토링 요청 게시글을 보고 메세지 보낼 수 있다.
+
+	- 멘티
+		1. 멘토링 이후 멘토에 대한 평가가능 
+		
+	
+	• 제약조건 Contraint
+	1. 사용자는 멘토로 등록 시 등록 파일을 등록하며 반드시 관리자의 승인이 필요하다 - (admin 테이블 추가)
+	2. 멘티는 직업 트랙을 위시리스트로 저장할 수 있다. 이때, 한 직업에 여러 트랙 들어갈 수 있다. - (jobTrack 테이블 추가)
+	3. 멘토와 멘티는 모두 tag별로 코딩테스트를 통해 level을 획득 할 수 있다. - (test relation)
+	4. 코딩테스트의 문제는 문제 번호로 고유 식별되며 여러 언어를 지원한다. - (problem 테이블 추가)
+	5. 언어는 특정 코드로 구별된다 (ex> J : java, P : python 등) - (language 테이블 추가)
+	6. 요청 글에는 원하는 멘토링 기간 뿐만 아니라 원하는 언어까지 등록해야 한다. - (support relation)
+	7. 멘토링을 받은 사람은 직무트랙에 대한 정보를 제공 받을 수 있다. – (wish 테이블 추가)
+	8. 한 명의 멘토는 같은 기간의 여러 멘티와 연결될 수 있다.
+	9. 한 명의 멘티는 같은 기간의 여러 멘토와 연결될 수 있다.
+	
+	• (refinement 이후) 최종 스키마
+	- admin (id, pw)
+	- User (id, pw, name, introduction, gender, job)
+	- mentee (id, mentoring_count)
+	- problem (number, content, input, output, constraint)
+	- language (code_type, name)
+	- jobTrack (name, content)
+	- mentor (mentor_id, tot_score)
+	- review (number, mentor_id, mentee_id, tag, content, score)
+	- wish (mentee_id, name, content)
+	- test (user_id, number, Tag, level, result)
+	- support (code_type, number)
+	- mentoring (mentor_id, mentee_id, start_date, content, end_date)
+	- request (number, tag, content, user_id, code_type, start_date, end_date)
+	- register (user_id, admin_id, file_number, file_size)
+
+	```
+
+3. 구현 내용
+	1. view
+		- Main.java
+	2. model
+		- User
+	3. repository
+		- UserRepository
+		```java
+		public void createTable() // 테이블생성
+		public void createUser(User user) // User 튜플 생성
+		public User getUser(String userName) // UserName으로 튜플 검색
+		```		
