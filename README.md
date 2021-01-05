@@ -35,7 +35,7 @@
 	```
 9. 정리
 ---
-![슬라이드1](https://user-images.githubusercontent.com/60174144/96840160-0dd1ef00-1485-11eb-8b96-6f8816fbff67.PNG)
+![DBD basicProject 정리](https://user-images.githubusercontent.com/60174144/103611938-b6f99300-4f66-11eb-9bdc-8d2c9ce80aa2.png)
 
 [2. busProject]
 ---
